@@ -7,19 +7,20 @@ import future.keywords.in
 default allow = false
 
 deny contains msg if {
-    not input.password
-    msg:="Password not found"
-}
-deny contains msg if {
-    not (count(input.password) >=8 )
-    msg:= "Password must be of length greater than or equal to 8"
+	not input.password
+	msg := "Password not found"
 }
 
 deny contains msg if {
-    input.password in data.bad_passwords
-    msg := "Unsafe password"
+	not count(input.password) >= 8
+	msg := "Password must be of length greater than or equal to 8"
 }
 
-allow {
-    count(deny) == 0
+deny contains msg if {
+	input.password in data.bad_passwords
+	msg := "Unsafe password"
+}
+
+allow if {
+	count(deny) == 0
 }
