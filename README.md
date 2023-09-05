@@ -11,6 +11,23 @@ cd bundles
 opa build ../security --output security.bundle.tar.gz
 ```
 
+### Running unit tests
+```sh
+opa test -b <bundle path>
+```
+For example to test password policy
+```sh
+opa test -b bundles/security.bundle.tar.gz
+```
+
+### Configuring policies from remote url
+OPA provides various ways to add policies,
+* API for CRUD (create,read,update,delete) operations on policies
+* Policies packed as a bundle
+  * Policies are loaded in runtime without restarts
+* `opa/config.yaml` configuration file has services and api from where bundle can be fetched periodically
+  * As specified in configuration OPA fetches bundle from url `http://host.docker.internal:8080/opa/security.bundle.tar.gz` 
+
 ### Setup local test environment
 
 ```
