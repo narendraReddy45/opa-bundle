@@ -1,0 +1,11 @@
+services:
+  - name: local
+    url: http://host.docker.internal:8080
+
+bundles:
+  security:
+    service: local
+    resource: opa/security.bundle.tar.gz
+    persist: true
+    polling:
+      long_polling_timeout_seconds: 10
